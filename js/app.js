@@ -1,5 +1,23 @@
-angular.module('starter', ['ui.router','starter.controllers','ui.bootstrap'])
+angular.module('starter', ['ui.router','starter.controllers','firebase','mayhem'])
+.run(function($mayhem,$rootScope){
+  mayhem = new $mayhem(firebase.database().ref(), null);
 
+  // initialize airport list
+  firebase.database().ref('airports').on('value', function(snapshot) {
+    $rootScope.airports = snapshot.val();
+  });
+
+  // initialize flight list
+  firebase.database().ref('flights').on('value', function(snapshot) {
+      $rootScope.flights = snapshot.val();
+  });
+
+  // initialize route list
+  firebase.database().ref('routes').on('value', function(snapshot) {
+      $rootScope.routes = snapshot.val();
+  });
+
+})
 
 .config(['$stateProvider','$urlRouterProvider',function($stateProvider, $urlRouterProvider) {
 
@@ -16,18 +34,46 @@ angular.module('starter', ['ui.router','starter.controllers','ui.bootstrap'])
           controller: 'AirportCtrl'
       }
     },
-
-
-
   })
-  .state('airport', {
-    url: '/airport',
-    templateUrl: 'partial/airport_modal.html',
-    controller: 'AirportCtrl'
-
-  });
+  .state('dashboard', {
+    url: '/dashboard',
+    views:{
+      'view' : {
+          templateUrl: 'partial/dashboard.html',
+          controller: 'DashboardCtrl'
+      }
+    },
+  })
+  .state('flights', {
+    url: '/flights',
+    views:{
+      'view' : {
+          templateUrl: 'partial/flights.html',
+          controller: 'FlightCtrl'
+      }
+    },
+  })
+  .state('routes', {
+    url: '/routes',
+    views:{
+      'view' : {
+          templateUrl: 'partial/routes.html',
+          controller: 'RouteCtrl'
+      }
+    },
+  })
+  .state('schedule', {
+    url: '/schedule',
+    views:{
+      'view' : {
+          templateUrl: 'partial/schedule.html',
+          controller: 'ScheduleCtrl'
+      }
+    },
+  })
+  ;
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/airport');
+  $urlRouterProvider.otherwise('/dashboard');
 
 }]);

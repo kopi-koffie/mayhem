@@ -15,12 +15,15 @@
     <meta name="apple-mobile-web-app-title" content="Firebase Database Quickstart">
     <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
 
-    <link rel="stylesheet" href="css/style.css">
+
     <link rel="stylesheet" href="css/lineicons/style.css">
     <link rel="stylesheet" href="src/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="src/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="src/css/zabuto_calendar.css">
-
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/to-do.css">
+    <link rel="stylesheet" href="css/bootstrap-fullcalendar.css">
+    <link rel="stylesheet" href="css/fullcalendar.css">
     </style>
 
 
@@ -55,7 +58,7 @@
                     <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
                 </div>
               <!--logo start-->
-              <a href="index.html" class="logo"><b>DASHGUM FREE</b></a>
+              <a href="index.html" class="logo"><b>MAYHEM</b></a>
               <!--logo end-->
               <div class="nav notify-row" id="top_menu">
                   <!--  notification start -->
@@ -214,11 +217,11 @@
                 <!-- sidebar menu start-->
                 <ul class="sidebar-menu" id="nav-accordion">
 
-                	  <p class="centered"><a href="profile.html"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
-                	  <h5 class="centered">Marcel Newman</h5>
+                	  <p class="centered"><a href="profile.html"><img src="img/asset.jpg" class="img-circle" width="60"></a></p>
+                	  <h5 class="centered">Captain OHM</h5>
 
                     <li class="mt">
-                        <a class="active" href="index.html">
+                        <a class="active" ui-sref="dashboard">
                             <i class="fa fa-dashboard"></i>
                             <span>Dashboard</span>
                         </a>
@@ -305,176 +308,57 @@
                     <div class="col-lg-9 main-chart">
 
                     	<div class="row mtbox">
-                    		<div class="col-md-2 col-sm-2 col-md-offset-1 box0">
-                    			<div class="box1" >
-          					  			<i class="fa fa-calendar fa-5x" aria-hidden="true"></i>
-          					  			<h3>Schedule</h3>
-                          </div>
-          					  	</div>
-                    		<div class="col-md-2 col-sm-2 box0">
-                    			<div class="box1">
-          					  			<i class="fa fa-clone fa-5x" aria-hidden="true"></i>
-          					  			<h3>Flight</h3>
-                    			</div>
-  					  			    </div>
-                    		<div class="col-md-2 col-sm-2 box0">
-                    			<div class="box1">
-          					  			<i class="fa fa-globe fa-5x" aria-hidden="true"></i>
-          					  			<h3>Route</h3>
-                    			</div>
-  					  			    </div>
-                    		<div class="col-md-2 col-sm-2 box0">
-                    			<div class="box1">
-          					  		<a ui-sref="airports"><i class="fa fa-map-marker fa-5x" aria-hidden="true"></i></a>
-          					  			<h3>Airport</h3>
-                    			</div>
-  					  			    </div>
-                    		<div class="col-md-2 col-sm-2 box0">
-                    			<div class="box1">
-          					  			<i class="fa fa-plane fa-5x" aria-hidden="true"></i>
-          					  			<h3>Aircraft</h3>
-                    			</div>
-  					  			    </div>
+                          		<div class="col-md-2 col-sm-2 col-md-offset-1 box0">
+                                <a ui-sref="schedule">
+                            			<div class="box1 clickable" >
+                  					  			<i class="fa fa-calendar fa-5x" aria-hidden="true"></i>
+                  					  			<h3>Schedule</h3>
+                                  </div>
+                                </a>
+                					  	</div>
 
-                    	</div><!-- /row mt -->
+                          		<div class="col-md-2 col-sm-2 box0">
+                          			<a ui-sref="flights">
+                                  <div class="box1 clickable">
+                    					  			<i class="fa fa-clone fa-5x" aria-hidden="true"></i>
+                    					  			<h3>Flight</h3>
+                          			   </div>
+                                </a>
+        					  			    </div>
 
+                          		<div class="col-md-2 col-sm-2 box0">
+                                <a ui-sref="routes">
+                            			<div class="box1 clickable">
+                  					  			<i class="fa fa-globe fa-5x" aria-hidden="true"></i>
+                  					  			<h3>Route</h3>
+                            			</div>
+                                </a>
+        					  			    </div>
 
-                        <div class="row mt">
-                        <!-- SERVER STATUS PANELS -->
-                        	<div class="col-md-4 col-sm-4 mb">
-                        		<div class="white-panel pn donut-chart">
-                        			<div class="white-header">
-  						  			<h5>SERVER LOAD</h5>
-                        			</div>
-  								<div class="row">
-  									<div class="col-sm-6 col-xs-6 goleft">
-  										<p><i class="fa fa-database"></i> 70%</p>
-  									</div>
-  	                      		</div>
-  								<canvas id="serverstatus01" height="120" width="120"></canvas>
-  								<script>
-  									var doughnutData = [
-  											{
-  												value: 70,
-  												color:"#68dff0"
-  											},
-  											{
-  												value : 30,
-  												color : "#fdfdfd"
-  											}
-  										];
-  										var myDoughnut = new Chart(document.getElementById("serverstatus01").getContext("2d")).Doughnut(doughnutData);
-  								</script>
-  	                      	</div><! --/grey-panel -->
-                        	</div><!-- /col-md-4-->
+                          		<div class="col-md-2 col-sm-2 box0">
+                          			<a ui-sref="airports">
+                                  <div class="box1 clickable">
+                					  		         <i class="fa fa-map-marker fa-5x" aria-hidden="true"></i>
+                					  			       <h3>Airport</h3>
+                            			</div>
+                                </a>
+        					  			    </div>
+
+                          		<div class="col-md-2 col-sm-2 box0">
+                          			<div class="box1 clickable">
+                					  			<i class="fa fa-plane fa-5x" aria-hidden="true"></i>
+                					  			<h3>Aircraft</h3>
+                          			</div>
+        					  			    </div>
+                        </div><!-- /row mt -->
 
 
-                        	<div class="col-md-4 col-sm-4 mb">
-                        		<div class="white-panel pn">
-                        			<div class="white-header">
-  						  			<h5>TOP PRODUCT</h5>
-                        			</div>
-  								<div class="row">
-  									<div class="col-sm-6 col-xs-6 goleft">
-  										<p><i class="fa fa-heart"></i> 122</p>
-  									</div>
-  									<div class="col-sm-6 col-xs-6"></div>
-  	                      		</div>
-  	                      		<div class="centered">
-  										<img src="assets/img/product.png" width="120">
-  	                      		</div>
-                        		</div>
-                        	</div><!-- /col-md-4 -->
 
-  						<div class="col-md-4 mb">
-  							<!-- WHITE PANEL - TOP USER -->
-  							<div class="white-panel pn">
-  								<div class="white-header">
-  									<h5>TOP USER</h5>
-  								</div>
-  								<p><img src="assets/img/ui-zac.jpg" class="img-circle" width="80"></p>
-  								<p><b>Zac Snider</b></p>
-  								<div class="row">
-  									<div class="col-md-6">
-  										<p class="small mt">MEMBER SINCE</p>
-  										<p>2012</p>
-  									</div>
-  									<div class="col-md-6">
-  										<p class="small mt">TOTAL SPEND</p>
-  										<p>$ 47,60</p>
-  									</div>
-  								</div>
-  							</div>
-  						</div><!-- /col-md-4 -->
-
-
-                      </div><!-- /row -->
-
-
-  					<div class="row">
-  						<!-- TWITTER PANEL -->
-  						<div class="col-md-4 mb">
-                        		<div class="darkblue-panel pn">
-                        			<div class="darkblue-header">
-  						  			<h5>DROPBOX STATICS</h5>
-                        			</div>
-  								<canvas id="serverstatus02" height="120" width="120"></canvas>
-  								<script>
-  									var doughnutData = [
-  											{
-  												value: 60,
-  												color:"#68dff0"
-  											},
-  											{
-  												value : 40,
-  												color : "#444c57"
-  											}
-  										];
-  										var myDoughnut = new Chart(document.getElementById("serverstatus02").getContext("2d")).Doughnut(doughnutData);
-  								</script>
-  								<p>April 17, 2014</p>
-  								<footer>
-  									<div class="pull-left">
-  										<h5><i class="fa fa-hdd-o"></i> 17 GB</h5>
-  									</div>
-  									<div class="pull-right">
-  										<h5>60% Used</h5>
-  									</div>
-  								</footer>
-                        		</div><! -- /darkblue panel -->
-  						</div><!-- /col-md-4 -->
-
-
-  						<div class="col-md-4 mb">
-  							<!-- INSTAGRAM PANEL -->
-  							<div class="instagram-panel pn">
-  								<i class="fa fa-instagram fa-4x"></i>
-  								<p>@THISISYOU<br/>
-  									5 min. ago
-  								</p>
-  								<p><i class="fa fa-comment"></i> 18 | <i class="fa fa-heart"></i> 49</p>
-  							</div>
-  						</div><!-- /col-md-4 -->
-
-  						<div class="col-md-4 col-sm-4 mb">
-  							<!-- REVENUE PANEL -->
-  							<div class="darkblue-panel pn">
-  								<div class="darkblue-header">
-  									<h5>REVENUE</h5>
-  								</div>
-  								<div class="chart mt">
-  									<div class="sparkline" data-type="line" data-resize="true" data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="4" data-data="[200,135,667,333,526,996,564,123,890,464,655]"></div>
-  								</div>
-  								<p class="mt"><b>$ 17,980</b><br/>Month Income</p>
-  							</div>
-  						</div><!-- /col-md-4 -->
-
-  					</div><!-- /row -->
             <div ui-view="view"></div>
 
   					<div class="row mt">
                         <!--CUSTOM CHART START -->
-                        <div class="border-head">
+                        <!-- <div class="border-head">
                             <h3>VISITS</h3>
                         </div>
                         <div class="custom-bar-chart">
@@ -514,7 +398,7 @@
                                 <div class="title">JUL</div>
                                 <div class="value tooltips" data-original-title="7.500" data-toggle="tooltip" data-placement="top">75%</div>
                             </div>
-                        </div>
+                        </div> -->
                         <!--custom chart end-->
   					</div><!-- /row -->
 
@@ -611,7 +495,7 @@
         <!--footer start-->
         <footer class="site-footer">
             <div class="text-center">
-                2016 - Alvarez.is
+                2016 - LS
                 <a href="index.html#" class="go-top">
                     <i class="fa fa-angle-up"></i>
                 </a>
@@ -622,6 +506,12 @@
 
         <!-- AngularJS -->
         <script src="src/angular/angular.js"></script>
+
+        <!-- angular-touch -->
+        <script src="src/angular-touch/angular-touch.js"></script>
+
+        <!-- angular-animate -->
+        <script src="src/angular-animate/angular-animate.js"></script>
 
         <!-- Angular-ui -->
         <script src="src/angular-ui-router/release/angular-ui-router.js"></script>
@@ -638,17 +528,29 @@
         <!-- jQuery -->
         <script src="src/jquery/dist/jquery.min.js"></script>
 
+        <!-- jQuery-ui -->
+        <script src="src/jquery-ui/jquery-ui.js"></script>
+
         <!-- Bootstrap -->
         <script src="src/bootstrap/dist/js/bootstrap.min.js"></script>
 
-        <!--  -->
+        <!-- moment -->
+        <script src="js/moment.min.js"></script>
+
+        <!-- full calendar -->
+        <script src="js/fullcalendar.js"></script>
+
+        <!-- chart  -->
+        <script src="js/Chart.js"></script>
+
+        <!-- custom  -->
         <script src="js/mayhem.js"></script>
         <script src="js/app.js"></script>
         <script src="js/controllers.js"></script>
 
-
-
+        <!-- zabuto_calendar -->
         <script src="src/js/zabuto_calendar.js"></script>
+
         <script type="application/javascript">
               $(document).ready(function () {
                   $("#date-popover").popover({html: true, trigger: "manual"});

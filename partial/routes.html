@@ -1,0 +1,41 @@
+<div class="col-sm-12 ds">
+      <!-- USERS ONLINE SECTION -->
+			<h3>ROUTES <a ng-click="open('sm')"><i class="fa fa-plus-square-o fa-3x"></i></a></li></h3>
+      <!-- First Member -->
+      <div class="desc clickable" ng-repeat="route in routes" ng-click="">
+      	<div class="thumb">
+      		<i class="fa fa-globe fa-5x" aria-hidden="true"></i>
+      	</div>
+      	<div class="details">
+      		<p><a>{{route.origin.name}} ({{route.origin.iata}}) to {{route.destination.name}} ({{route.destination.iata}})</a><br/>
+      		   <muted>{{route.origin.icao}} / {{route.destination.icao}}</muted>
+      		</p>
+      	</div>
+      </div>
+</div>
+
+<script type="text/ng-template" id="route_modal.html">
+       <div class="modal-header">
+           <h3 class="modal-title">Route</h3>
+       </div>
+       <div class="modal-body">
+         <form class="form-login">
+            <div class="form-group">
+              <label class="sr-only" for="origin">origin</label>
+              <select class="form-control" ng-options = "airport as airport.name for airport in airports track by airport.iata" ng-model="route.origin">
+                  <option value="">origin</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="destination">destination</label>
+              <select class="form-control" ng-options = "airport as airport.name for airport in airports track by airport.iata" ng-model="route.destination">
+                  <option value="">destination</option>
+              </select>
+            </div>
+          </form>
+       </div>
+       <div class="modal-footer">
+           <button class="btn btn-primary" type="button" ng-click="add()">Add</button>
+           <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+       </div>
+</script>

@@ -1,6 +1,73 @@
-<ul>
-  <li>airport lists <a ui-sref="airport"><i class="fa fa-plus-square-o fa-3x"></i></a></li>
-  <li ng-repeat="airport in airports">
-    <a>{{airport.iata}}</a>
-  </li>
-</ul>
+
+<div class="col-sm-12 ds">
+      <!-- USERS ONLINE SECTION -->
+			<h3>AIRPORTS <a ng-click="open('sm')"><i class="fa fa-plus-square-o fa-3x"></i></a></li></h3>
+      <!-- First Member -->
+      <div class="desc clickable" ng-repeat="airport in airports" ng-show="true" ng-swipe-left ="showActions = true">
+      	<div class="thumb">
+      		<i class="fa fa-map-marker fa-5x" aria-hidden="true"></i>
+      	</div>
+      	<div class="details">
+      		<p><a>{{airport.iata}}</a><br/>
+      		   <muted>{{airport.name}}</muted>
+      		</p>
+      	</div>
+        <div ng-show="true" ng-swipe-right="showActions = true">
+          <button ng-click="delete(airport.iata)">Delete</button>
+        </div>
+      </div>
+
+</div>
+
+
+<script type="text/ng-template" id="airport_modal.html">
+       <div class="modal-header">
+           <h3 class="modal-title">Airport</h3>
+       </div>
+       <div class="modal-body">
+         <form class="form-login">
+            <div class="form-group">
+              <label class="sr-only" for="name">Name</label>
+              <input type="text" class="form-control" id="name" ng-model="airport.name" placeholder="airport name">
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="iata">IATA</label>
+              <input type="text" class="form-control" id="iata" ng-model="airport.iata" placeholder="IATA">
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="icao">ICAO</label>
+              <input type="text" class="form-control" id="icao" ng-model="airport.icao" placeholder="ICAO">
+            </div>
+          </form>
+       </div>
+       <div class="modal-footer">
+           <button class="btn btn-primary" type="button" ng-click="add()">Add</button>
+           <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+       </div>
+</script>
+
+<script type="text/ng-template" id="edit_airport_modal.html">
+       <div class="modal-header">
+           <h3 class="modal-title">Airport</h3>
+       </div>
+       <div class="modal-body">
+         <form class="form-inline">
+            <div class="form-group">
+              <label class="sr-only" for="name">Name</label>
+              <input type="text" class="form-control" id="name" ng-model="airport.name" placeholder="airport name">
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="iata">IATA</label>
+              <input type="text" class="form-control" id="iata" ng-model="airport.iata" placeholder="IATA">
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="icao">ICAO</label>
+              <input type="text" class="form-control" id="icao" ng-model="airport.icao" placeholder="ICAO">
+            </div>
+          </form>
+       </div>
+       <div class="modal-footer">
+           <button class="btn btn-primary" type="button" ng-click="edit()">OK</button>
+           <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+       </div>
+</script>

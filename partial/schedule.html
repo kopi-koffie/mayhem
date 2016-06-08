@@ -1,0 +1,36 @@
+<div class="row mt">
+        <aside class="col-lg-3 mt">
+            <h4><i class="fa fa-angle-right"></i> Draggable Events</h4>
+            <div id="external-events">
+                <div class="external-event label label-theme">Bangkok</div>
+                <div class="external-event label label-success">My Event 2</div>
+                <div class="external-event label label-info">My Event 3</div>
+                <div class="external-event label label-warning">My Event 4</div>
+                <div class="external-event label label-danger">My Event 5</div>
+                <div class="external-event label label-default">My Event 6</div>
+                <div class="external-event label label-theme">My Event 7</div>
+                <div class="external-event label label-info">My Event 8</div>
+                <div class="external-event label label-success">My Event 9</div>
+                <div class="btn-group">
+    						  <button type="button" class="btn btn-theme04 dropdown-toggle" data-toggle="dropdown">
+    						    Bangkok <span class="caret"></span>
+    						  </button>
+    						  <ul class="dropdown-menu" role="menu">
+                    <li  ng-repeat="flight in flights" class="external-event label label-success">{{flight.flight_number}}</li>
+    						    <li><a href="#">Action</a></li>
+    						    <li><a href="#">Another action</a></li>
+    						    <li><a href="#">Something else here</a></li>
+    						    <li class="divider"></li>
+    						    <li><a href="#">Separated link</a></li>
+    						  </ul>
+						    </div>
+            </div>
+        </aside>
+        <aside class="col-lg-9 mt">
+            <section class="panel">
+                <div class="panel-body">
+                    <div id="schedule_calendar" class="has-toolbar"></div>
+                </div>
+            </section>
+        </aside>
+</div>

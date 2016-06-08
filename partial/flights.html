@@ -1,0 +1,47 @@
+<div class="col-sm-12 ds">
+      <!-- USERS ONLINE SECTION -->
+			<h3>FLIGHTS <a ng-click="open('sm')"><i class="fa fa-plus-square-o fa-3x"></i></a></li></h3>
+      <!-- First Member -->
+      <div class="desc clickable" ng-repeat="flight in flights" ng-click="edit(flight.flight_number)">
+      	<div class="thumb">
+      		<i class="fa fa-clone fa-5x" aria-hidden="true"></i>
+      	</div>
+      	<div class="details">
+      		<p><a>{{flight.flight_number}}</a><br/>
+      		   <muted>{{flight.origin.icao}} / {{flight.destination.icao}}</muted>
+      		</p>
+      	</div>
+      </div>
+</div>
+
+<script type="text/ng-template" id="flight_modal.html">
+       <div class="modal-header">
+           <h3 class="modal-title">Flight</h3>
+       </div>
+       <div class="modal-body">
+         <form class="form-login">
+            <div class="form-group">
+              <label class="sr-only" for="flight_number">Flight #</label>
+              <input type="text" class="form-control" id="id" ng-model="flight.flight_number" placeholder="flight #">
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="route">route</label>
+              <select class="form-control" ng-options = "route as route.destination.name group by route.origin.name for route in routes  track by route.id" ng-model="flight.selectedRoute">
+                  <option value="">route</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="departure">departure</label>
+              <input type="text" class="form-control" id="depart" ng-model="flight.departure" placeholder="departure">
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="arrival">arrival</label>
+              <input type="text" class="form-control" id="arrival" ng-model="flight.arrival" placeholder="arrival">
+            </div>
+          </form>
+       </div>
+       <div class="modal-footer">
+           <button class="btn btn-primary" type="button" ng-click="add()">Add</button>
+           <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+       </div>
+</script>
