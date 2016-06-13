@@ -11,13 +11,17 @@
                 <div class="external-event label label-theme">My Event 7</div>
                 <div class="external-event label label-info">My Event 8</div>
                 <div class="external-event label label-success">My Event 9</div>
+                <div class="external-event label label-success" ng-repeat="flight in flights">
+                    {{flight.flight_number}}
+                </div>
+
                 <div class="btn-group">
     						  <button type="button" class="btn btn-theme04 dropdown-toggle" data-toggle="dropdown">
     						    Bangkok <span class="caret"></span>
     						  </button>
     						  <ul class="dropdown-menu" role="menu">
-                    <li  ng-repeat="flight in flights" class="external-event label label-success">{{flight.flight_number}}</li>
-    						    <li><a href="#">Action</a></li>
+                    <li  ng-repeat="flight in flights" class="external-event label label-success ui-draggable" ng-attr-data-flight={{flight}}><a>{{flight.flight_number}}</a></li>
+    						    <li>Action</li>
     						    <li><a href="#">Another action</a></li>
     						    <li><a href="#">Something else here</a></li>
     						    <li class="divider"></li>
@@ -34,3 +38,48 @@
             </section>
         </aside>
 </div>
+
+
+<script type="text/ng-template" id="schedule_modal.html">
+       <div class="modal-header">
+           <h3 class="modal-title">Schedule</h3>
+       </div>
+       <div class="modal-body">
+         <form class="form-login">
+            <div class="form-group">
+              <label class="sr-only" for="flight_number">Flight #</label>
+              <input type="text" class="form-control" id="id" ng-model="schedule.flight_number"  placeholder="flight #">
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="origin">origin</label>
+              <input type="text" class="form-control" id="origin" ng-model="schedule.flight.origin.name"  placeholder="origin">
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="destination">destination</label>
+              <input type="text" class="form-control" id="destination" ng-model="schedule.flight.destination.name"  placeholder="destination">
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="date">date</label>
+              <input type="date" class="form-control" id="date" ng-model="schedule.date"  placeholder="date">
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="departure">departure</label>
+              <input type="text" class="form-control" id="departure" ng-model="schedule.flight.departure"  placeholder="departure">
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="arrival">arrival</label>
+              <input type="text" class="form-control" id="arrival" ng-model="schedule.flight.arrival"  placeholder="arrival">
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="aircraft">aircraft</label>
+              <select class="form-control" ng-options = "aircraft as aircraft.aircraft_number for aircraft in aircrafts track by aircraft.aircraft_number" ng-model="schedule.aircraft">
+                  <option value="">aircraft</option>
+              </select>
+            </div>
+          </form>
+       </div>
+       <div class="modal-footer">
+           <button class="btn btn-primary" type="button" ng-click="add()">Add</button>
+           <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+       </div>
+</script>

@@ -1,0 +1,31 @@
+<div class="col-sm-12 ds">
+      <!-- USERS ONLINE SECTION -->
+			<h3>AIRCRAFT <a ng-click="open('sm')"><i class="fa fa-plus-square-o fa-3x"></i></a></li></h3>
+      <!-- First Member -->
+      <div class="desc clickable" ng-repeat="aircraft in aircrafts">
+      	<div class="thumb">
+      		<i class="fa fa-clone fa-5x" aria-hidden="true"></i>
+      	</div>
+      	<div class="details">
+      		<p><a>{{aircraft.aircraft_number}}</a><br/>
+      		   <muted>{{aircraft.aircraft_number}}</muted>
+      		</p>
+      	</div>
+      </div>
+</div>
+
+<script type="text/ng-template" id="aircraft_modal.html">
+       <div class="modal-header">
+           <h3 class="modal-title">AIRCRAFT</h3>
+       </div>
+       <div class="modal-body">
+         <form class="form-login">
+            <div class="form-group">
+              <label class="sr-only" for="flight_number">Aircraft #</label>
+              <input type="text" class="form-control" id="id" ng-model="aircraft.aircraft_number" placeholder="aircraft #">
+            </div>
+       <div class="modal-footer">
+           <button class="btn btn-primary" type="button" ng-click="add()">Add</button>
+           <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+       </div>
+</script>

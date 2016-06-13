@@ -17,6 +17,16 @@ angular.module('starter', ['ui.router','starter.controllers','firebase','mayhem'
       $rootScope.routes = snapshot.val();
   });
 
+  // initialize schedule list
+  firebase.database().ref('schedule').on('value', function(snapshot) {
+      $rootScope.schedule = snapshot.val();
+  });
+
+  // initialize aircrafts list
+  firebase.database().ref('aircrafts').on('value', function(snapshot) {
+      $rootScope.aircrafts = snapshot.val();
+  });
+
 })
 
 .config(['$stateProvider','$urlRouterProvider',function($stateProvider, $urlRouterProvider) {
@@ -68,6 +78,16 @@ angular.module('starter', ['ui.router','starter.controllers','firebase','mayhem'
       'view' : {
           templateUrl: 'partial/schedule.html',
           controller: 'ScheduleCtrl'
+      }
+    },
+  })
+
+  .state('aircrafts', {
+    url: '/aircrafts',
+    views:{
+      'view' : {
+          templateUrl: 'partial/aircrafts.html',
+          controller: 'AirCraftCtrl'
       }
     },
   })
