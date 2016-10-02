@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="css/lineicons/style.css">
     <link rel="stylesheet" href="src/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="src/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="src/eanasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="src/css/zabuto_calendar.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/to-do.css">
@@ -530,17 +531,22 @@
         <!-- jQuery -->
         <script src="src/jquery/dist/jquery.min.js"></script>
 
+        <!-- moment -->
+        <script src="js/moment.min.js"></script>
+
         <!-- jQuery-ui -->
         <script src="src/jquery-ui/jquery-ui.js"></script>
 
         <!-- Bootstrap -->
         <script src="src/bootstrap/dist/js/bootstrap.min.js"></script>
 
-        <!-- moment -->
-        <script src="js/moment.min.js"></script>
-
         <!-- full calendar -->
         <script src="js/fullcalendar.js"></script>
+
+        <!-- Bootstrap datetime picker -->
+        <script src="src/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+
+
 
         <!-- chart  -->
         <script src="js/Chart.js"></script>
@@ -555,6 +561,8 @@
 
         <script type="application/javascript">
               $(document).ready(function () {
+
+
                   $("#date-popover").popover({html: true, trigger: "manual"});
                   $("#date-popover").hide();
                   $("#date-popover").click(function (e) {
@@ -611,6 +619,8 @@
                   var to = $("#" + id).data("to");
                   console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
               }
+
+
           </script>
   </body>
 </html>

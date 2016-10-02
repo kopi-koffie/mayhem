@@ -80,7 +80,7 @@ angular.module('starter.controllers', ['ui.bootstrap','ngTouch','ngAnimate'])
         origin: $scope.flight.selectedRoute.origin,
         destination: $scope.flight.selectedRoute.destination,
         departure : $scope.flight.departure,
-        arrival : $scope.flight.arrival
+        arrival :  $scope.flight.arrival
       }).then(function(data){
           console.log(data);
           modalInstance.close();
@@ -149,6 +149,10 @@ angular.module('starter.controllers', ['ui.bootstrap','ngTouch','ngAnimate'])
 }])
 
 .controller('ScheduleCtrl', ['$scope','$firebase','$uibModal',function($scope,$firebase,$uibModal) {
+          mayhem.get('flights').then(function(result){
+            $scope.flights = result;
+          });
+
           $('#external-events').on('DOMNodeInserted',function(){
             initializeExternalEvents();
           });
@@ -167,7 +171,8 @@ angular.module('starter.controllers', ['ui.bootstrap','ngTouch','ngAnimate'])
                   // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
                   // it doesn't need to have a start or end
                   var eventObject = {
-                      title: $.trim($(this).text()) // use the element's text as the event title
+                      title: $.trim($(this).text()), // use the element's text as the event title
+                      flight : $(this).data('flight')
                   };
 
                   // store the Event Object in the DOM element so we can get to it later
@@ -177,7 +182,9 @@ angular.module('starter.controllers', ['ui.bootstrap','ngTouch','ngAnimate'])
             			$(this).draggable({
             				zIndex: 999,
             				revert: true,      // will cause the event to go back to its
-            				revertDuration: 0  //  original position after the drag
+            				revertDuration: 0,  //  original position after the drag
+                    helper : "clone",
+                    snap : true
             			});
 
     		    });
@@ -241,69 +248,80 @@ angular.module('starter.controllers', ['ui.bootstrap','ngTouch','ngAnimate'])
                 copiedEventObject.allDay = allDay;
                 console.log(copiedEventObject);
                 $scope.schedule= {
-                  date : new Date(date.year(),date.month(),date.date()),
+                  //date : new Date(date.year(),date.month(),date.date()),
+                  date : moment(date).format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
                   flight_number :  copiedEventObject.title,
                   flight : copiedEventObject.flight
                 };
-                console.log($scope.schedule.flight);
+                // render the event on the calendar
+                // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+                // $('#schedule_calendar').fullCalendar('renderEvent', copiedEventObject, true);
 
                 // open modal
                 $scope.open('sm');
+              },
+            events : function(start, end, timezone, callback) {
+                $.ajax({
+                  url: 'https://project-109588683016713089.firebaseio.com/schedule.json',
+                  data: {
+                        start: moment(1,"DD").format('YYYY-MM-DD'),
+                        end: moment().endOf("month").format('YYYY-MM-DD')
+                  },
+                  success: function(doc) {
+                      var events = [];
+
+                      $.each(doc,function(index,element) {
+                      events.push({
+                              title: element.title,
+                              aircraft : element.aircraft,
+                              arrival : element.arrival,
+                              //departure : element.departure,
+                              departure : moment(element.start).hour(element.departure.split(":")[0]).minute(element.departure.split(":")[1]),
+                              destination : element.destination,
+                              origin : element.origin,
+                              start : element.start,
+                              flight_number : element.flight_number
+                          });
+                      });
+                      callback(events);
+                      $('#schedule_calendar').fullCalendar('render');
+
+                  }
+                });
+            },
+            eventClick : function(event,jsEvent,view){
+              console.log(view);
+              console.log(event);
+              $scope.schedule.date = new Date(event.start.year(),event.start.month(),event.start.date());
 
 
-                // render the event on the calendar
-                // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-                $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+              // open modal
+              $scope.open('sm');
 
             },
-            events: [
-                {
-                    title: 'All Day Event',
-                    start: new Date(y, m, 1)
-                },
-                {
-                    title: 'Long Event',
-                    start: new Date(y, m, d-5),
-                    end: new Date(y, m, d-2)
-                },
-                {
-                    id: 999,
-                    title: 'Repeating Event',
-                    start: new Date(y, m, d-3, 16, 0),
-                    allDay: false
-                },
-                {
-                    id: 999,
-                    title: 'Repeating Event',
-                    start: new Date(y, m, d+4, 16, 0),
-                    allDay: false
-                },
-                {
-                    title: 'Meeting',
-                    start: new Date(y, m, d, 10, 30),
-                    allDay: false
-                },
-                {
-                    title: 'Lunch',
-                    start: new Date(y, m, d, 12, 0),
-                    end: new Date(y, m, d, 14, 0),
-                    allDay: false
-                },
-                {
-                    title: 'Birthday Party',
-                    start: new Date(y, m, d+1, 19, 0),
-                    end: new Date(y, m, d+1, 22, 30),
-                    allDay: false
-                },
-                {
-                    title: 'Click for Google',
-                    start: new Date(y, m, 28),
-                    end: new Date(y, m, 29),
-                    url: 'http://google.com/'
-                }
-            ]
+            eventDrop : function(){ //Triggered when dragging stops and the event has moved to a different day/time.
 
+            }
     });
+
+
+    $scope.showTimePicker = function($event){
+      currentElement = $event.currentTarget;
+      $(currentElement).datetimepicker({
+          format: 'HH : mm'
+      });
+      $(currentElement).data("DateTimePicker").show();
+    };
+
+    $scope.showDatePicker = function($event){
+      currentElement = $event.currentTarget;
+      $(currentElement).datetimepicker({
+          format: 'MM / DD / YYYY'
+      });
+      $(currentElement).data("DateTimePicker").show();
+
+    };
+
 
     // oepn modal
     $scope.animationsEnabled = true;
@@ -313,23 +331,41 @@ angular.module('starter.controllers', ['ui.bootstrap','ngTouch','ngAnimate'])
             templateUrl: 'schedule_modal.html',
             size: size,
             scope : $scope,
-            controller : 'ScheduleCtrl'
+            controller : 'ScheduleCtrl',
+            resolve: {
+              schedule: function () {
+                return $scope.schedule;
+            }
+            }
         });
+
+       modalInstance.opened.then(function () {
+         console.log($('.dateInput').is(':visible'));
+         $('.dateInput').datetimepicker({
+             format: 'HH : mm'
+         });
+
+       });
     };
 
     $scope.add = function(){
-      console.log($scope.schedule);
-
-      firebase.database().ref('schedule/'+ $scope.aircraft.aircraft_number).set({
-          id :  $scope.aircraft.aircraft_number,
+      console.log( "hh: " +$scope.schedule.flight.departure.split(":")[0]);
+      console.log($scope.schedule.flight.departure.split(":")[1]);
+      var _departure = moment($scope.schedule.date).hour($scope.schedule.flight.departure.split(":")[0]).minute($scope.schedule.flight.departure.split(":")[1]).format('ddd, DD MMM YYYY HH:mm:ss ZZ');
+      var _arrival = moment($scope.schedule.date).hour($scope.schedule.flight.arrival .split(":")[0]).minute($scope.schedule.flight.arrival .split(":")[1]).format('ddd, DD MMM YYYY HH:mm:ss ZZ');
+      firebase.database().ref('schedule/').push({
           flight_number : $scope.schedule.flight.flight_number,
-          destination : $scope.schedule.flight.destination.iata ,
-          origin :  $scope.schedule.flight.origin.iata,
-          departure :  $scope.schedule.flight.departure ,
-          arrival : $scope.schedule.flight.arrival,
-          aircraft :  $scope.aircraft
+          destination : $scope.schedule.flight.destination ,
+          origin :  $scope.schedule.flight.origin,
+          //departure : $scope.schedule.flight.departure,
+          departure :  _departure ,
+          //arrival : $scope.schedule.flight.arrival,
+          arrival : _arrival,
+          aircraft :  $scope.schedule.aircraft.aircraft_number,
+          title: $scope.schedule.flight.flight_number,
+          start: $scope.schedule.date
         }).then(function(data){
-            console.log(data);
+            $('#schedule_calendar').fullCalendar( 'render' );
             modalInstance.close();
 
         });

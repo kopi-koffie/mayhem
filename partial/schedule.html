@@ -2,16 +2,7 @@
         <aside class="col-lg-3 mt">
             <h4><i class="fa fa-angle-right"></i> Draggable Events</h4>
             <div id="external-events">
-                <div class="external-event label label-theme">Bangkok</div>
-                <div class="external-event label label-success">My Event 2</div>
-                <div class="external-event label label-info">My Event 3</div>
-                <div class="external-event label label-warning">My Event 4</div>
-                <div class="external-event label label-danger">My Event 5</div>
-                <div class="external-event label label-default">My Event 6</div>
-                <div class="external-event label label-theme">My Event 7</div>
-                <div class="external-event label label-info">My Event 8</div>
-                <div class="external-event label label-success">My Event 9</div>
-                <div class="external-event label label-success" ng-repeat="flight in flights">
+                <div class="external-event label label-success" ng-repeat="flight in flights" ng-attr-data-flight={{flight}} ng-attr-data-event='{"title":"{{flight.flight_number}}""}'>
                     {{flight.flight_number}}
                 </div>
 
@@ -46,34 +37,27 @@
        </div>
        <div class="modal-body">
          <form class="form-login">
+           <div class="form-group">
+             <span class="label label-info">{{schedule.flight_number}} {{schedule.flight.origin.name}}/{{schedule.flight.destination.name}}</span>
+           </div>
             <div class="form-group">
-              <label class="sr-only" for="flight_number">Flight #</label>
-              <input type="text" class="form-control" id="id" ng-model="schedule.flight_number"  placeholder="flight #">
+              <div class="input-append dateInput" >
+                <input type="text" class="form-control" id="date" ng-click = "showDatePicker($event)" ng-model="schedule.date"  placeholder="date">
+              </div>
             </div>
-            <div class="form-group">
-              <label class="sr-only" for="origin">origin</label>
-              <input type="text" class="form-control" id="origin" ng-model="schedule.flight.origin.name"  placeholder="origin">
-            </div>
-            <div class="form-group">
-              <label class="sr-only" for="destination">destination</label>
-              <input type="text" class="form-control" id="destination" ng-model="schedule.flight.destination.name"  placeholder="destination">
-            </div>
-            <div class="form-group">
-              <label class="sr-only" for="date">date</label>
-              <input type="date" class="form-control" id="date" ng-model="schedule.date"  placeholder="date">
-            </div>
-            <div class="form-group">
+<div class="form-group">
               <label class="sr-only" for="departure">departure</label>
-              <input type="text" class="form-control" id="departure" ng-model="schedule.flight.departure"  placeholder="departure">
+              <input type="text" class="form-control" id="departure" ng-model="schedule.flight.departure"  ng-click = "showTimePicker($event)" placeholder="departure">
+
             </div>
             <div class="form-group">
               <label class="sr-only" for="arrival">arrival</label>
-              <input type="text" class="form-control" id="arrival" ng-model="schedule.flight.arrival"  placeholder="arrival">
+              <input type="text" class="form-control timpeInput" id="arrival" ng-model="schedule.flight.arrival" ng-click = "showTimePicker($event)"  placeholder="arrival">
             </div>
             <div class="form-group">
               <label class="sr-only" for="aircraft">aircraft</label>
               <select class="form-control" ng-options = "aircraft as aircraft.aircraft_number for aircraft in aircrafts track by aircraft.aircraft_number" ng-model="schedule.aircraft">
-                  <option value="">aircraft</option>
+                  <option value="">Select Aircraft</option>
               </select>
             </div>
           </form>
@@ -82,4 +66,12 @@
            <button class="btn btn-primary" type="button" ng-click="add()">Add</button>
            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
        </div>
+</script>
+
+<script type="text/javascript">
+  $(function() {
+    $('#datetimepicker4').datetimepicker({
+      pickTime: false
+    });
+  });
 </script>
