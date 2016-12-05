@@ -32,46 +32,42 @@
 
 
 <script type="text/ng-template" id="schedule_modal.html">
-       <div class="modal-header">
-           <h3 class="modal-title">Schedule</h3>
-       </div>
-       <div class="modal-body">
-         <form class="form-login">
-           <div class="form-group">
-             <span class="label label-info">{{schedule.flight_number}} {{schedule.flight.origin.name}}/{{schedule.flight.destination.name}}</span>
-           </div>
-            <div class="form-group">
-              <div class="input-append dateInput" >
-                <input type="text" class="form-control" id="date" ng-click = "showDatePicker($event)" ng-model="schedule.date"  placeholder="date">
-              </div>
-            </div>
-<div class="form-group">
-              <label class="sr-only" for="departure">departure</label>
-              <input type="text" class="form-control" id="departure" ng-model="schedule.flight.departure"  ng-click = "showTimePicker($event)" placeholder="departure">
+            <div class="white-panel pn">
+  								<div class="white-header">
+                    <h5>{{selected_schedule.flight.flight_number}}</h5>
+                    <h6>{{selected_schedule.flight.origin.name}}/{{selected_schedule.flight.destination.name}}</h6>
+  								</div>
+								  <!-- <p><img src="assets/img/ui-zac.jpg" class="img-circle" width="50"></p> -->
+								  <!-- <p>
+                     <input class="mdl-textfield__input" type="text" id="date" ng-click = "showDatePicker($event)" ng-model="selected_schedule.start">
+                  </p> -->
+                  <md-input-container>
+                     <md-datepicker ng-model="display_date" aria-label="depature date"></md-datepicker>
+                  </md-input-container>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <p class="small mt">DEPARTURE</p>
+                      <p>{{selected_schedule.flight.departure | amUtc | amDateFormat:'HH : mm'}}</p>
+                    </div>
+                    <div class="col-md-6">
+                      <p class="small mt">ARRIVAL</p>
+                      <p>{{selected_schedule.flight.arrival | amUtc | amDateFormat:'HH : mm'}}</p>
+                    </div>
+                  </div>
+                  <md-select ng-model="selected_schedule.aircraft" placeholder="Select aircraft" class="md-no-underline" required md-no-asterisk="false">
+                     <md-option ng-repeat = "aircraft in aircrafts" ng-selected = "selected_schedule.aircraft == aircraft.aircraft_number" value="{{aircraft.aircraft_number}}">{{aircraft.aircraft_number}}</md-option>
+                 </md-select>
+                  
+                  <div class="mdl-card__actions mdl-card--border">
+                      <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" ng-click="add()">
+                        Add to Schedule
+                      </a>
+                      <div class="mdl-card__menu">
+                        <button class="mdl-button mdl-js-button mdl-button--icon" ng-click="cancel()">
+                          <i class="material-icons">cancel</i>
+                        </button>
+                      </div>
+                      <div class="mdl-layout-spacer"></div>
+                 </div>
 
-            </div>
-            <div class="form-group">
-              <label class="sr-only" for="arrival">arrival</label>
-              <input type="text" class="form-control timpeInput" id="arrival" ng-model="schedule.flight.arrival" ng-click = "showTimePicker($event)"  placeholder="arrival">
-            </div>
-            <div class="form-group">
-              <label class="sr-only" for="aircraft">aircraft</label>
-              <select class="form-control" ng-options = "aircraft as aircraft.aircraft_number for aircraft in aircrafts track by aircraft.aircraft_number" ng-model="schedule.aircraft">
-                  <option value="">Select Aircraft</option>
-              </select>
-            </div>
-          </form>
-       </div>
-       <div class="modal-footer">
-           <button class="btn btn-primary" type="button" ng-click="add()">Add</button>
-           <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
-       </div>
-</script>
-
-<script type="text/javascript">
-  $(function() {
-    $('#datetimepicker4').datetimepicker({
-      pickTime: false
-    });
-  });
-</script>
+							</div>

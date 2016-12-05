@@ -5,16 +5,17 @@
       <!-- First Member -->
       <div class="desc clickable" ng-repeat="airport in airports" ng-show="true" ng-swipe-left ="showActions = true">
       	<div class="thumb">
-      		<i class="fa fa-map-marker fa-5x" aria-hidden="true"></i>
+      		<i class="material-icons">location_on</i>
       	</div>
       	<div class="details">
       		<p><a>{{airport.iata}}</a><br/>
       		   <muted>{{airport.name}}</muted>
       		</p>
       	</div>
-        <div ng-show="true" ng-swipe-right="showActions = true">
-          <button ng-click="delete(airport.iata)">Delete</button>
-        </div>
+				
+				<button class="mdl-button mdl-js-button mdl-button--icon" ng-click="delete(airport.iata)">
+					<i class="material-icons">cancel</i>
+				</button>
       </div>
 
 </div>

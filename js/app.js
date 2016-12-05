@@ -1,6 +1,6 @@
 angular.module('starter', ['ui.router','starter.controllers','firebase','mayhem'])
 .run(function($mayhem,$rootScope){
-  mayhem = new $mayhem(firebase.database().ref(), null);
+  mayhem = new $mayhem(firebase.database().ref(), null); // databaseUrl = firebase.database().ref()
 
   // initialize airport list
   firebase.database().ref('airports').on('value', function(snapshot) {

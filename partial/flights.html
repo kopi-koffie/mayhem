@@ -11,6 +11,9 @@
       		   <muted>{{flight.origin.icao}} / {{flight.destination.icao}}</muted>
       		</p>
       	</div>
+				<button class="mdl-button mdl-js-button mdl-button--icon" ng-click="">
+					<i class="material-icons">cancel</i>
+				</button>
       </div>
 </div>
 
@@ -32,11 +35,11 @@
             </div>
             <div class="form-group">
               <label class="sr-only" for="departure">departure</label>
-              <input type="text" class="form-control" id="depart" ng-model="flight.departure" placeholder="departure">
+              <input type="text" class="form-control" id="depart" ng-model="flight.departure" ng-click = "showTimePicker($event)" placeholder="departure">
             </div>
             <div class="form-group">
               <label class="sr-only" for="arrival">arrival</label>
-              <input type="text" class="form-control" id="arrival" ng-model="flight.arrival" placeholder="arrival">
+              <input type="text" class="form-control" id="arrival" ng-model="flight.arrival" ng-click = "showTimePicker($event)" placeholder="arrival">
             </div>
           </form>
        </div>
